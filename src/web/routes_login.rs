@@ -5,6 +5,12 @@ use tower_cookies::{Cookie, Cookies};
 
 use crate::{Error, Result, web};
 
+#[derive(Debug, Deserialize)]
+struct LoginPayload {
+    username: String,
+    pwd: String,
+}
+
 pub fn routes() -> Router {
     Router::new().route("/api/login", post(api_login))
 }
@@ -25,10 +31,4 @@ async fn api_login(cookies: Cookies, payload: Json<LoginPayload>) -> Result<Json
     }));
 
     Ok(body)
-}
-
-#[derive(Debug, Deserialize)]
-struct LoginPayload {
-    username: String,
-    pwd: String,
 }
